@@ -1,0 +1,21 @@
+services:
+  api:
+    build: ./server
+    environment:
+      PORT: 3001
+      CLIENT_ORIGIN: http://localhost:8080
+      FAKE_STORE_BASE_URL: https://fakestoreapi.com
+      CATALOGUE_CACHE_SECONDS: 60
+      FEATURED_PRODUCT_IDS: "1,2,3,4,5"
+      TOP_RATED_PER_CATEGORY: 3
+      SALES_INBOX: sales@example.com
+      ENABLE_DEV_INBOX: "true"
+    expose:
+      - "3001"
+
+  web:
+    build: ./client
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
